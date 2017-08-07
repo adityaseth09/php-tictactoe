@@ -1,0 +1,14 @@
+{
+  "name": "Aditya/ticTacToe",
+  "autoload": {
+    "psr-4": {
+      "ticTacToe\\src\\": "src"
+    }
+  },
+  "require": {
+    "php": "^7.1"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~6.3"
+  }
+}
