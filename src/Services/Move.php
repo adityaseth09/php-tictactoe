@@ -17,6 +17,7 @@ Class Move implements MoveInterface
     const PLAYER_X = 'X';
     const PLAYER_O = 'O';
     const VACANT_AREA = '';
+    const WIN_MESSAGE = " Wins The Game !!!";
     /**
      * Winning combination
      *
@@ -74,9 +75,9 @@ Class Move implements MoveInterface
     {
         $this->setPlayers($playerUnit);
         if ($this->isGameWon($boardState, $this->humanPlayer)) {
-            throw new GameAlreadyWonException($this->humanPlayer);
+            throw new GameAlreadyWonException($this->humanPlayer . MOVE::WIN_MESSAGE);
         } elseif ($this->isGameWon($boardState, $this->systemPlayer)) {
-            throw new GameAlreadyWonException($this->systemPlayer);
+            throw new GameAlreadyWonException($this->systemPlayer . MOVE::WIN_MESSAGE);
         }
 
         $nextMoveCoordinates = $this->coordinates[$this->makeNextMove()];
@@ -230,7 +231,7 @@ Class Move implements MoveInterface
         foreach ($boardState as $boardLine) {
             foreach ($boardLine as $value) {
                 if (!($value === Move::PLAYER_X || $value === Move::PLAYER_O || $value === Move::VACANT_AREA)) {
-                    throw new BoardStateInvalidException('The Inputs are not valid');
+                    throw new BoardStateInvalidException('The value ' . $value. ' is not valid');
                 }
                 if ($value == Move::PLAYER_X) {
                     $countX++;

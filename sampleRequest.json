@@ -1,0 +1,10 @@
+{
+  "player": "X",
+  "boardState": [
+    {
+      "Top": ["X", "O", ""],
+      "Middle": ["O", "", ""],
+      "Bottom": ["X", "O", "O"]
+    }
+  ]
+}
