@@ -1,4 +1,4 @@
-##How To Play
+## How To Play
 
 As the API does not have a UI/Frontend to play with, but for the sake of testing the API, the following steps could be taken
 
