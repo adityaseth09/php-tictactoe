@@ -1,0 +1,21 @@
+{
+  "player": "O",
+  "boardState": [
+    [
+      "O",
+      "X",
+      "O"
+    ],
+    [
+      "X",
+      "O",
+      "O"
+    ],
+    [
+      "X",
+      "X",
+      "X"
+    ]
+  ],
+  "state": "X Wins The Game !!!"
+}
