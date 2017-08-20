@@ -12,4 +12,4 @@ The API is completely stateless, so the game could be started at any point.
 
 Please check out how someone can play around with the api 
 
-(https://github.com/adityaseth09/php-tictactoe/blob/master/docs/Sample_api_request_screen_shot.png)
+[alt text](https://github.com/adityaseth09/php-tictactoe/blob/master/docs/Sample_api_request_screen_shot.png)
