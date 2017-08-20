@@ -68,21 +68,48 @@ Class Move implements MoveInterface
     /** @var string */
     private $systemPlayer;
 
+    /** @var int */
+    private $countX;
+
+    /** @var int */
+    private $countO;
+
     /**
      * @inheritdoc
      */
-    public function makeMove($boardState, $playerUnit = Move::PLAYER_X)
+    public function makeMove($boardState, $systemPlayerUnit = Move::PLAYER_X)
     {
-        $this->setPlayers($playerUnit);
+        $this->setPlayers($systemPlayerUnit);
         if ($this->isGameWon($boardState, $this->humanPlayer)) {
             throw new GameAlreadyWonException($this->humanPlayer . MOVE::WIN_MESSAGE);
         } elseif ($this->isGameWon($boardState, $this->systemPlayer)) {
             throw new GameAlreadyWonException($this->systemPlayer . MOVE::WIN_MESSAGE);
         }
 
-        $nextMoveCoordinates = $this->coordinates[$this->makeNextMove()];
+        if ($this->canMove($systemPlayerUnit)) {
+            $nextMoveCoordinates = $this->coordinates[$this->makeNextMove()];
 
-        return [$nextMoveCoordinates[0], $nextMoveCoordinates[1], $playerUnit];
+            return [$nextMoveCoordinates[0], $nextMoveCoordinates[1], $systemPlayerUnit];
+        }
+    }
+
+    /**
+     * @param $systemPlayerUnit
+     * @return bool
+     * @throws BoardStateInvalidException
+     */
+    private function canMove($systemPlayerUnit)
+    {
+        if ($systemPlayerUnit == Move::PLAYER_X) {
+            $differenceOfMoves = $this->countX - $this->countO;
+        } else {
+            $differenceOfMoves = $this->countO - $this->countX;
+        }
+        if ($differenceOfMoves == -1 || $differenceOfMoves == 0) {
+            return true;
+        }
+
+        throw new BoardStateInvalidException('The Count of Inputs are not valid');
     }
 
     /**
@@ -91,7 +118,7 @@ Class Move implements MoveInterface
      */
     public function isGameWon($boardState, $playerUnit)
     {
-        $this->setBoard($boardState);
+        $this->setBoard($boardState, $playerUnit);
         foreach (Move::WINNING_COMBINATIONS as $combination) {
             if (
                 $this->board[$combination[0]] == $playerUnit &&
@@ -102,6 +129,17 @@ Class Move implements MoveInterface
             }
         }
         return false;
+    }
+
+    public function updateBoardState($newCoordinate, $playerUnit)
+    {
+        foreach ($this->coordinates as $index => $coordinate) {
+            if ($coordinate == $newCoordinate) {
+                $this->board[$index] = $playerUnit;
+
+                return $this->board;
+            }
+        }
     }
 
     /**
@@ -219,46 +257,48 @@ Class Move implements MoveInterface
 
     /**
      * @param $boardState
+     * @param $playerUnit
      * @return bool
      *
      * @throws BoardStateInvalidException
      */
-    private function setBoard($boardState)
+    private function setBoard($boardState, $playerUnit)
     {
         $i = 1;
-        $countO = 0;
-        $countX = 0;
+        $this->countO = 0;
+        $this->countX = 0;
         foreach ($boardState as $boardLine) {
             foreach ($boardLine as $value) {
-                if (!($value === Move::PLAYER_X || $value === Move::PLAYER_O || $value === Move::VACANT_AREA)) {
-                    throw new BoardStateInvalidException('The value ' . $value. ' is not valid');
+
+                if (!($value == Move::PLAYER_X || $value == Move::PLAYER_O || $value == Move::VACANT_AREA)) {
+                    throw new BoardStateInvalidException('The value ' . $value . ' is not valid');
                 }
                 if ($value == Move::PLAYER_X) {
-                    $countX++;
+                    $this->countX++;
                 }
                 if ($value == Move::PLAYER_O) {
-                    $countO++;
+                    $this->countO++;
                 }
                 $this->board[$i] = $value;
                 $i++;
             }
         }
-        $diff = $countX - $countO;
+        $diff = $this->countX - $this->countO;
         if ($diff < -1 || $diff > 1) {
             throw new BoardStateInvalidException('The Count of Inputs are not valid');
         }
     }
 
     /**
-     * @param $playerUnit
+     * @param $systemPlayerUnit
      */
-    private function setPlayers($playerUnit)
+    private function setPlayers($systemPlayerUnit)
     {
-        $this->humanPlayer = $playerUnit;
-        if ($playerUnit == Move::PLAYER_X) {
-            $this->systemPlayer = Move::PLAYER_O;
+        $this->systemPlayer = $systemPlayerUnit;
+        if ($systemPlayerUnit == Move::PLAYER_X) {
+            $this->humanPlayer = Move::PLAYER_O;
         } else {
-            $this->systemPlayer = Move::PLAYER_X;
+            $this->humanPlayer = Move::PLAYER_X;
         }
     }
 }

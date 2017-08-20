@@ -31,17 +31,81 @@ class MoveTest extends TestCase
     public function winningDataProvider()
     {
         return [
-            "Winning Move Sides" =>[[[ 'X', 'X', ''], [ 'O', 'O', ''], [ '' , '' , '']], 'O', [2,0,'O']],
-            "Winning Move Top Bottom" =>[[[ 'X', 'O', ''], [ 'X', 'O', ''], [ '' , '' , '']], 'O', [0,2,'O']],
-            "Winning Move Slanting " =>[[[ 'X', 'O', ''], [ 'O', 'X', ''], [ '' , '' , '']], 'O', [2,2,'O']],
-            "Winning Move Slanting 2" =>[[[ 'O', 'O', 'X'], [ 'O', 'X', ''], [ '' , '' , '']], 'O', [0,2,'O']],
-            "Blocking Move Sides" =>[[[ 'X', '', ''], [ 'O', 'O', ''], [ '' , '' , '']], 'O', [2,1,'O']],
-            "Blocking Move Top Bottom" =>[[[ 'O', 'X', ''], [ 'O', '', ''], [ '' , '' , 'X']], 'O', [0,2,'O']],
-            "First Move comes on Top Left Corner" => [[[ '', '', ''], [ '', '', ''], [ '' , '' , '']], 'O', [0,0,'O']],
-            "Second Move comes on Top Right Corner" => [[[ 'O', '', ''], [ '', '', ''], [ '' , '' , '']], 'O', [2,0,'O']],
-            "Move comes on Bottom Left Corner" => [[[ 'O', '', 'X'], [ '', '', ''], [ '' , 'O' , '']], 'O', [0,2,'O']],
-            "Move comes on Side" => [[[ 'O', 'X', 'O'], [ '', 'X', ''], [ 'X' , 'O' , 'X']], 'O', [0,1,'O']],
-            "Move comes on Center" => [[[ 'O', 'X', 'O'], [ 'X', '', 'O'], [ 'X' , 'O' , 'X']], 'O', [1,1,'O']],
+            "Winning Move Sides" =>[
+                [
+                    [ 'X', 'X', ''],
+                    [ 'O', 'O', ''],
+                    [ '' , '' , '']
+                ], 'O', [2,1,'O']
+            ],
+            "Winning Move Top Bottom" =>[
+                [
+                    [ 'X', 'O', ''],
+                    [ 'X', 'O', ''],
+                    [ '' , '' , '']
+                ], 'O', [1,2,'O']],
+            "Winning Move Slanting " =>[
+                [
+                    [ 'X', 'O', ''],
+                    [ 'O', 'X', ''],
+                    [ '' , '' , '']
+                ], 'O', [2,2,'O']
+            ],
+            "Winning Move Slanting 2" =>[
+                [
+                    [ 'O', 'O', 'X'],
+                    [ 'O', 'X', ''],
+                    [ '' , '' , '']
+                ], 'X', [0,2,'X']
+            ],
+            "Blocking Move Sides" =>[
+                [
+                    [ 'X', '', ''],
+                    [ 'O', 'O', ''],
+                    [ '' , '' , '']
+                ], 'X', [2,1,'X']
+            ],
+            "Blocking Move Top Bottom" =>[
+                [
+                    [ 'O', 'X', ''],
+                    [ 'O', '', ''],
+                    [ '' , '' , 'X']
+                ], 'O', [0,2,'O']
+            ],
+            "First Move comes on Top Left Corner" => [
+                [
+                    [ '', '', ''],
+                    [ '', '', ''],
+                    [ '' , '' , '']
+                ], 'O', [0,0,'O']
+            ],
+            "Second Move comes on Top Right Corner" => [
+                [
+                    [ 'O', '', ''],
+                    [ '', '', ''],
+                    [ '' , '' , '']
+                ], 'X', [2,0,'X']
+            ],
+            "Move comes on Bottom Left Corner" => [
+                [[ 'O', '', 'X'],
+                    [ '', '', ''],
+                    [ '' , 'O' , '']
+                ], 'X', [0,2,'X']
+            ],
+            "Move comes on Side" => [
+                [
+                    [ 'O', 'X', 'O'],
+                    [ '', 'X', ''],
+                    [ 'X' , 'O' , 'X']
+                ], 'O', [0,1,'O']
+            ],
+            "Move comes on Center" => [
+                [
+                    [ 'O', 'X', 'O'],
+                    [ 'X', '', 'O'],
+                    [ 'X' , 'O' , 'X']
+                ], 'O', [1,1,'O']
+            ],
         ];
     }
 
@@ -61,12 +125,42 @@ class MoveTest extends TestCase
     public function isGameWonDataProvider()
     {
         return [
-            "Won On Top Row" =>[[[ 'X', 'X', 'X'], [ 'O', 'O', ''], [ '' , '' , '']], 'X', true],
-            "Won On Middle Column" =>[[[ 'X', 'O', 'X'], [ 'X', 'O', ''], [ '' , 'O' , '']],'O', true],
-            "Won On Diagonal" =>[[[ 'X', 'O', 'X'], [ 'O', 'X', ''], [ 'O' , 'O' , 'X']],'X', true],
-            "Not Won On Top Row" =>[[[ 'X', 'O', 'X'], [ 'O', 'O', ''], [ '' , '' , '']], 'X', false],
-            "Not Won On Middle Column" =>[[[ 'X', 'O', 'O'], [ 'X', 'O', ''], [ '' , 'X' , '']],'O', false],
-            "Not Won On Diagonal" =>[[[ 'X', 'X', 'O'], [ 'O', '', 'X'], [ 'O' , 'O' , 'X']],'X', false],
+            "Won On Top Row" =>[
+                [
+                    [ 'X', 'X', 'X'],
+                    [ 'O', 'O', ''],
+                    [ '' , '' , '']
+                ], 'X', true],
+            "Won On Middle Column" =>[
+                [
+                    [ 'X', 'O', 'X'],
+                    [ 'X', 'O', ''],
+                    [ '' , 'O' , '']
+                ],'O', true],
+            "Won On Diagonal" =>[
+                [
+                    [ 'X', 'O', 'X'],
+                    [ 'O', 'X', ''],
+                    [ 'O' , 'O' , 'X']
+                ],'X', true],
+            "Not Won On Top Row" =>[
+                [
+                    [ 'X', 'O', 'X'],
+                    [ 'O', 'O', ''],
+                    [ '' , '' , '']
+                ], 'X', false],
+            "Not Won On Middle Column" =>[
+                [
+                    [ 'X', 'O', 'O'],
+                    [ 'X', 'O', ''],
+                    [ '' , 'X' , '']
+                ],'O', false],
+            "Not Won On Diagonal" =>[
+                [
+                    [ 'X', 'X', 'O'],
+                    [ 'O', '', 'X'],
+                    [ 'O' , 'O' , 'X']
+                ],'X', false],
 
         ];
     }
@@ -86,8 +180,24 @@ class MoveTest extends TestCase
     public function boardStateInvalidExceptionDataProvider()
     {
         return[
-            "Five O's and Three X" =>[[[ 'X', 'O', 'O'], [ 'O', '', 'X'], [ 'O' , 'O' , 'X']],'X'],
-            "Two X's and No O" =>[[[ 'X', '', ''], [ '', '', 'X'], [ '' , '' , '']],'X']
+            "Five O's and Three X" =>[
+                [
+                    [ 'X', 'O', 'O'],
+                    [ 'O', '', 'X'],
+                    [ 'O' , 'O' , 'X']
+                ],'X'],
+            "Two X's and No O" =>[
+                [
+                    [ 'X', '', ''],
+                    [ '', '', 'X'],
+                    [ '' , '' , '']
+                ],'X'],
+            "Three O's and 2 X's with O's Move" => [
+                [
+                    [ 'X', 'O', ''],
+                    [ 'O', '', ''],
+                    [ 'X' , '' , 'O']
+                ],'O'],
         ];
     }
 }
