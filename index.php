@@ -23,7 +23,6 @@ $moveApiHelper = new MoveApiHelper();
 $response = new Response();
 try {
     $nextState = $move->makeMove($gameState['boardState'], $gameState['player']);
-    print_r($nextState);
     $gameState = $move->updateBoardState([$nextState[0], $nextState [1]], $nextState[2]);
 
     $gameState["state"] = '';

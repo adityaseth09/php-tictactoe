@@ -8,7 +8,7 @@ class MoveApiHelper {
 
     public function createBoardApiParameters($board, $playerUnit, $message)
     {
-        
+
     }
 
     private function setBoard()
