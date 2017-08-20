@@ -20,7 +20,6 @@ Class Move implements MoveInterface
     const WIN_MESSAGE = " Wins The Game !!!";
     /**
      * Winning combination
-     *
      * @const array
      */
     const WINNING_COMBINATIONS = [
@@ -94,7 +93,7 @@ Class Move implements MoveInterface
     }
 
     /**
-     * @param $systemPlayerUnit
+     * @param string $systemPlayerUnit
      * @return bool
      * @throws BoardStateInvalidException
      */
@@ -113,7 +112,8 @@ Class Move implements MoveInterface
     }
 
     /**
-     * @param $playerUnit
+     * @param array $boardState
+     * @param string $playerUnit
      * @return bool
      */
     public function isGameWon($boardState, $playerUnit)
@@ -129,11 +129,6 @@ Class Move implements MoveInterface
             }
         }
         return false;
-    }
-
-    public function updateBoardState($boardState, $newCoordinate, $playerUnit)
-    {
-
     }
 
 
@@ -176,7 +171,7 @@ Class Move implements MoveInterface
     }
 
     /**
-     * @param $position
+     * @param int $position
      * @return bool
      */
     private function move($position)
@@ -226,7 +221,7 @@ Class Move implements MoveInterface
     }
 
     /**
-     * @param $playerUnit
+     * @param string $playerUnit
      * @return bool|int
      */
     private function getWinningMove($playerUnit)
@@ -251,13 +246,12 @@ Class Move implements MoveInterface
     }
 
     /**
-     * @param $boardState
-     * @param $playerUnit
+     * @param array $boardState
      * @return bool
      *
      * @throws BoardStateInvalidException
      */
-    private function setBoard($boardState, $playerUnit)
+    private function setBoard($boardState)
     {
         $i = 1;
         $this->countO = 0;
@@ -285,7 +279,7 @@ Class Move implements MoveInterface
     }
 
     /**
-     * @param $systemPlayerUnit
+     * @param string $systemPlayerUnit
      */
     private function setPlayers($systemPlayerUnit)
     {

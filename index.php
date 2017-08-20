@@ -9,7 +9,6 @@ use ticTacToe\src\exception\GameAlreadyWonException;
 use ticTacToe\src\exception\MoveNotPossibleException;
 use ticTacToe\src\exception\BoardStateInvalidException;
 
-
 $request = Request::createFromGlobals();
 $player = $request->get('player');
 $content = $request->getContent();
@@ -19,13 +18,15 @@ $gameState = json_decode($content, true);
 $move = new Move();
 
 $response = new Response();
+
 try {
     $nextState = $move->makeMove($gameState['boardState'], $gameState['player']);
-    $newMovePosition = [$nextState[0], $nextState[1]];
-
-    $boardState[$nextState[0]][$nextState[1]] = $gameState['player'];
-    
-    $gameState["state"] = '';
+    $newMovePositionX = $nextState[1];
+    $newMovePositionY = $nextState[0];
+    $gameState['boardState'][$newMovePositionX][$newMovePositionY] = $gameState['player'];
+    if ($move->isGameWon($gameState['boardState'], $gameState['player'])) {
+        $gameState["state"] = $gameState['player'] . ' Wins !';
+    }
     $response->setContent(json_encode($gameState));
 } catch (GameAlreadyWonException $e) {
     $gameState["state"] = $e->getMessage();
