@@ -5,7 +5,6 @@ require __DIR__ . '/vendor/autoload.php';
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use ticTacToe\src\Services\Move;
-use ticTacToe\src\Services\MoveApiHelper;
 use ticTacToe\src\exception\GameAlreadyWonException;
 use ticTacToe\src\exception\MoveNotPossibleException;
 use ticTacToe\src\exception\BoardStateInvalidException;
@@ -18,13 +17,14 @@ $content = $request->getContent();
 $gameState = json_decode($content, true);
 
 $move = new Move();
-$moveApiHelper = new MoveApiHelper();
 
 $response = new Response();
 try {
     $nextState = $move->makeMove($gameState['boardState'], $gameState['player']);
-    $gameState = $move->updateBoardState([$nextState[0], $nextState [1]], $nextState[2]);
+    $newMovePosition = [$nextState[0], $nextState[1]];
 
+    $boardState[$nextState[0]][$nextState[1]] = $gameState['player'];
+    
     $gameState["state"] = '';
     $response->setContent(json_encode($gameState));
 } catch (GameAlreadyWonException $e) {

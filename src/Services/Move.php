@@ -131,16 +131,11 @@ Class Move implements MoveInterface
         return false;
     }
 
-    public function updateBoardState($newCoordinate, $playerUnit)
+    public function updateBoardState($boardState, $newCoordinate, $playerUnit)
     {
-        foreach ($this->coordinates as $index => $coordinate) {
-            if ($coordinate == $newCoordinate) {
-                $this->board[$index] = $playerUnit;
 
-                return $this->board;
-            }
-        }
     }
+
 
     /**
      * @return int
