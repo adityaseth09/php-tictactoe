@@ -10,7 +10,7 @@ Please note that the API is completely Stateless and uses post request.
 
 
 ##### Try IT Online
-The API is hosted online at [http://54.93.245.92/api](http://54.93.245.92/api)
+The API is hosted online at [http://52.59.234.120/api.php](http://52.59.234.120/api.php)
 
 
 

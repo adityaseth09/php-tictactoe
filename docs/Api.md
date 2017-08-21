@@ -21,7 +21,7 @@ The Unit/Player that would be making next Move(Computer/System)
 The Current state of Board as a json Array containing a 2 dimensional Array representing the sate of Board
 
  
-### Response
+### Response (200)
 
 ```
 {
@@ -51,7 +51,7 @@ True if The move can be made else its false
 Give the current state of the game, In case the api has some erroneous input error text is shown here.
 
 
-### Response with Result
+### Response (200) with Result
 ```
 {
     "player":"X",
