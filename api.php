@@ -26,16 +26,24 @@ try {
     $gameState['boardState'][$newMovePositionX][$newMovePositionY] = $gameState['player'];
     if ($move->isGameWon($gameState['boardState'], $gameState['player'])) {
         $gameState["state"] = $gameState['player'] . ' Wins !';
+        $gameState["canMove"] = "False";
+    }
+    else {
+        $gameState["state"] = '';
+        $gameState["canMove"] = "True";
     }
     $response->setContent(json_encode($gameState));
 } catch (GameAlreadyWonException $e) {
     $gameState["state"] = $e->getMessage();
+    $gameState["canMove"] = "False";
     $response->setContent(json_encode($gameState));
 } catch (MoveNotPossibleException $e) {
     $gameState["state"] = $e->getMessage();
+    $gameState["canMove"] = "False";
     $response->setContent(json_encode($gameState));
 } catch (BoardStateInvalidException $e) {
     $gameState["state"] = $e->getMessage();
+    $gameState["canMove"] = "False";
     $response->setContent(json_encode($gameState));
 }
 
