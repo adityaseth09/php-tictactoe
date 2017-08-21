@@ -4,7 +4,7 @@ As the API does not have a UI/Frontend to play with, but for the sake of testing
 
 After the code is running on the system or the online link is being used(shared in Readme file)
 
-Please use a tool like postman as the Server Request done here are using POST method
+Please use a tool like [postman](https://www.getpostman.com/) as the Server Request done here are using POST method
 
 check the [sample request json file](https://github.com/adityaseth09/php-tictactoe/docs/blob/master/sampleRequest.json) And the [sample response json](https://github.com/adityaseth09/php-tictactoe/docs/blob/master/sampleResponse.json)
  
