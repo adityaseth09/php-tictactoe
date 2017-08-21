@@ -1,5 +1,7 @@
 ## How To Play
 
+The API is hosted online at [http://52.59.234.120/api.php](http://52.59.234.120/api.php)
+
 As the API does not have a UI/Frontend to play with, but for the sake of testing the API, the following steps could be taken
 
 After the code is running on the system or the online link is being used(shared in Readme file)
